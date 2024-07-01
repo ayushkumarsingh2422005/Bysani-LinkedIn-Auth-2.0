@@ -1,12 +1,14 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
+import { Navigate } from 'react-router-dom';
 
 const UserProfile = () => {
-  const { user, logout } = useContext(AuthContext);
+  const { user, logout, fetchUserProfile } = useContext(AuthContext);
 
-  if (!user) {
-    return <div>Loading...</div>;
-  }
+  // if (!user) {
+  //   return <Navigate to="/login" />;
+  // }
+  fetchUserProfile();
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -19,16 +21,16 @@ const UserProfile = () => {
           <strong>Username:</strong> {user.username}
         </div>
         <div className="mb-4">
-          <strong>Education:</strong> {user.education}
+          <strong>Education:</strong> {user.education || 'N/A'}
         </div>
         <div className="mb-4">
-          <strong>Professional Experience:</strong> {user.professional_experience}
+          <strong>Professional Experience:</strong> {user.professional_experience || 'N/A'}
         </div>
         <div className="mb-4">
-          <strong>Certificates:</strong> {user.certificates}
+          <strong>Certificates:</strong> {user.certificates || 'N/A'}
         </div>
         <div className="mb-4">
-          <strong>Skills:</strong> {user.skills}
+          <strong>Skills:</strong> {user.skills || 'N/A'}
         </div>
         <button
           onClick={logout}

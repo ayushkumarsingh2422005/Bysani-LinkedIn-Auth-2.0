@@ -1,8 +1,9 @@
 import React, { useContext, useEffect } from 'react';
 import { AuthContext } from '../../context/AuthContext';
+import { Navigate } from 'react-router-dom';
 
 const Login = () => {
-  const { login, fetchUserProfile } = useContext(AuthContext);
+  const { user, login, fetchUserProfile } = useContext(AuthContext);
 
   useEffect(() => {
     const query = new URLSearchParams(window.location.search);
@@ -12,6 +13,10 @@ const Login = () => {
       fetchUserProfile();
     }
   }, [fetchUserProfile]);
+
+  if (user) {
+    return <Navigate to="/profile" />;
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
